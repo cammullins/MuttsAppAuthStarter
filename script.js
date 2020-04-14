@@ -1,8 +1,9 @@
 let userID = 3;
+let baseUrl = 'http://demo.codingnomads.co:8082/muttsapp/users'
 
 //As soon as JS file loads, we run this function to get all the items for the sidebar
 function getUserChats() {
-    fetch(`http://demo.codingnomads.co:8080/muttsapp/users/${userID}/chats`)
+    fetch(`${baseUrl}/${userID}/chats`)
         //The info retrieved in the fetch request returns a response object.
         //The response object is assigned to the parameter in the following method as "response"
         .then(response => response.json())
@@ -20,9 +21,8 @@ function previewBoxClick(event) {
     let chatID = event.target.dataset.chat_id;
     let senderID = event.target.dataset.sender_id;
     document.getElementById('send-message').dataset.chat_id = chatID;
-    console.log(`http://demo.codingnomads.co:8080/muttsapp/users/${userID}/chats/` + senderID)
     //The value of "chatID" is passed to this url, to create a dynamically generated API based on which preview box is clicked
-    fetch(`http://demo.codingnomads.co:8080/muttsapp/users/${userID}/chats/` + senderID)
+    fetch(`${baseUrl}/${userID}/chats/` + senderID)
          //The info retrieved in the fetch request returns a response object.
          //The response object is assigned to the parameter in the following method as "response"
         .then(response => response.json())
@@ -178,7 +178,7 @@ const createChatBubble = (msg) => {
         },
         body: JSON.stringify(msgObj)
      }
-     fetch('http://demo.codingnomads.co:8080/muttsapp/users/' + userID+ "/chat", postParams)
+     fetch(`${baseUrl}/${userID}/chat`, postParams)
          .then(res => res.json())
          .then(res => console.log(res))
  };
